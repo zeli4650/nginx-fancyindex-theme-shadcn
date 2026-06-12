@@ -109,40 +109,27 @@
   function insertParentRow() {
     var body = listingBody();
     var currentPath = window.location.pathname;
-    var columnCount;
     var row;
     var nameCell;
-    var dateCell;
-    var sizeCell;
     var link;
 
     if (!body || currentPath === "/") {
       return;
     }
 
-    columnCount = Math.max(3, (body.querySelector("tr") || {}).cells ? body.querySelector("tr").cells.length : 3);
     row = document.createElement("tr");
     row.dataset.kind = "parent";
     row.className = "simulated-parent-row";
 
     nameCell = document.createElement("td");
-    dateCell = document.createElement("td");
-    sizeCell = document.createElement("td");
     link = document.createElement("a");
 
+    nameCell.colSpan = 4;
     link.href = "../";
     link.textContent = "..";
     nameCell.appendChild(link);
-    dateCell.textContent = "";
-    sizeCell.textContent = "-";
 
     row.appendChild(nameCell);
-    row.appendChild(dateCell);
-    row.appendChild(sizeCell);
-
-    while (row.cells.length < columnCount) {
-      row.appendChild(document.createElement("td"));
-    }
 
     body.insertBefore(row, body.firstElementChild);
   }
