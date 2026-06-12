@@ -27,6 +27,8 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   margin: 0;
   background: transparent;
@@ -44,6 +46,9 @@ button:focus-visible {
 }
 
 .page-shell {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   width: min(1040px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 3rem 0;
@@ -113,6 +118,7 @@ button:focus-visible {
 
 .index-card {
   overflow: hidden;
+  margin-bottom: 1.25rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card);
@@ -303,7 +309,7 @@ button:focus-visible {
   gap: 0.5rem;
   align-items: center;
   justify-content: center;
-  margin-top: 1.25rem;
+  margin-top: auto;
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.85rem;
