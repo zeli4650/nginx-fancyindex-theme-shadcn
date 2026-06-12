@@ -7,7 +7,7 @@
   var sortColumns = {
     N: "name",
     M: "date",
-    S: "size"
+    S: "size",
   };
 
   function decodePathPart(part) {
@@ -21,7 +21,9 @@
   function prettyDirectoryName() {
     var path = window.location.pathname;
     var parts = path.split("/").filter(Boolean);
-    var current = parts.length ? decodePathPart(parts[parts.length - 1]) : "Home";
+    var current = parts.length
+      ? decodePathPart(parts[parts.length - 1])
+      : "Home";
 
     return current || "Home";
   }
@@ -135,7 +137,10 @@
   }
 
   function normalizeHeaderText(text) {
-    return text.replace(/[\u2190-\u21ff\u25b2-\u25ff\u2303\u2304]/g, "").replace(/\s+/g, " ").trim();
+    return text
+      .replace(/[\u2190-\u21ff\u25b2-\u25ff\u2303\u2304]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
   }
 
   function queryParam(url, key) {
@@ -168,16 +173,20 @@
     var activeOrder = params.get("O") || "A";
 
     document.querySelectorAll(".index-card th").forEach(function (header) {
-      var links = Array.prototype.slice.call(header.querySelectorAll("a[href]"));
+      var links = Array.prototype.slice.call(
+        header.querySelectorAll("a[href]"),
+      );
       var primaryLink = null;
       var url;
       var column;
       var nextOrder;
       var indicator;
 
-      header.querySelectorAll(".sort-indicator").forEach(function (existingIndicator) {
-        existingIndicator.remove();
-      });
+      header
+        .querySelectorAll(".sort-indicator")
+        .forEach(function (existingIndicator) {
+          existingIndicator.remove();
+        });
 
       links.forEach(function (link) {
         var href = link.getAttribute("href") || "";
@@ -217,8 +226,10 @@
       primaryLink.textContent = normalizeHeaderText(primaryLink.textContent);
       primaryLink.href = sortUrl(column, nextOrder);
       primaryLink.dataset.sortColumn = sortColumns[column];
-      primaryLink.dataset.sortActive = activeColumn === column ? "true" : "false";
-      primaryLink.dataset.sortOrder = activeColumn === column ? activeOrder : "";
+      primaryLink.dataset.sortActive =
+        activeColumn === column ? "true" : "false";
+      primaryLink.dataset.sortOrder =
+        activeColumn === column ? activeOrder : "";
 
       indicator = document.createElement("span");
       indicator.className = "sort-indicator";
@@ -245,7 +256,7 @@
       Sep: "09",
       Oct: "10",
       Nov: "11",
-      Dec: "12"
+      Dec: "12",
     };
 
     document.querySelectorAll(".index-card tr").forEach(function (row) {
@@ -257,13 +268,24 @@
       }
 
       var value = dateCell.textContent.trim().replace(/\s+/g, " ");
-      var match = value.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})\s+(\d{2}):(\d{2})$/);
+      var match = value.match(
+        /^(\d{1,2})-([A-Za-z]{3})-(\d{4})\s+(\d{2}):(\d{2})$/,
+      );
 
       if (!match || !months[match[2]]) {
         return;
       }
 
-      dateCell.textContent = match[3] + "-" + months[match[2]] + "-" + match[1].padStart(2, "0") + " " + match[4] + ":" + match[5];
+      dateCell.textContent =
+        match[3] +
+        "-" +
+        months[match[2]] +
+        "-" +
+        match[1].padStart(2, "0") +
+        " " +
+        match[4] +
+        ":" +
+        match[5];
     });
   }
 
@@ -299,4 +321,4 @@
   if (generatedTime) {
     generatedTime.textContent = formatDate(new Date());
   }
-}());
+})();
