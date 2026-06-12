@@ -1,12 +1,12 @@
 # Nginx FancyIndex Theme - shadcn/ui
 
-This is a theme for Nginx's [FancyIndex](https://github.com/aperezdc/ngx-fancyindex) module which looks to look like a minimalistic, modern web app as though it were built using shadcn/ui.
+This is a theme for Nginx's [FancyIndex](https://github.com/aperezdc/ngx-fancyindex) module which strives to make your directory tree look like a minimalistic, modern web app as though it were built using shadcn/ui.
 
-Make your static directory file listing tree both beautiful and efficient with static HTML, CSS & JS assets!
+Make your static file listing both beautiful and efficient with static HTML, CSS & JS assets!
 
 ## Showcase
 
-I use this theme for my [personal static file listing](https://files.guzek.uk/misc/showcase/), which you can test for yourself!
+I use this theme for my [personal static file listing](https://files.guzek.uk/misc/showcase/), which you can test for yourself.
 
 ![root directory listing](https://files.guzek.uk/misc/showcase/pictures/screenshots/root.png)
 ![pictures directory listing](https://files.guzek.uk/misc/showcase/pictures/screenshots/pictures.png)
