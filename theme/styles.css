@@ -20,6 +20,7 @@
 }
 
 html {
+  height: 100%;
   min-height: 100%;
   background: var(--background);
   color: var(--foreground);
@@ -29,9 +30,18 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   min-height: 100vh;
   margin: 0;
+  overflow: hidden;
   background: transparent;
+}
+
+@supports (height: 100dvh) {
+  body {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 a {
@@ -49,13 +59,22 @@ button:focus-visible {
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-height: 0;
   width: min(1040px, calc(100% - 2rem));
+  height: 100vh;
   margin: 0 auto;
   padding: 3rem 0;
 }
 
+@supports (height: 100dvh) {
+  .page-shell {
+    height: 100dvh;
+  }
+}
+
 .site-header {
   display: flex;
+  flex: 0 0 auto;
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
@@ -82,6 +101,7 @@ button:focus-visible {
 
 .breadcrumbs {
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: wrap;
   gap: 0.35rem;
   align-items: center;
@@ -117,6 +137,8 @@ button:focus-visible {
 }
 
 .index-card {
+  flex: 0 1 auto;
+  min-height: 0;
   overflow: hidden;
   margin-bottom: 1.25rem;
   border: 1px solid var(--border);
@@ -130,6 +152,10 @@ button:focus-visible {
 }
 
 .index-card table {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
   width: 100%;
   border-collapse: collapse;
   color: var(--card-foreground);
@@ -137,8 +163,47 @@ button:focus-visible {
   table-layout: auto;
 }
 
+.index-card thead,
+.index-card tbody {
+  display: block;
+}
+
+.index-card tbody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-color: hsl(0 0% 32%) transparent;
+  scrollbar-width: thin;
+}
+
+.index-card tbody::-webkit-scrollbar {
+  width: 0.65rem;
+}
+
+.index-card tbody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.index-card tbody::-webkit-scrollbar-thumb {
+  border: 0.18rem solid transparent;
+  border-radius: 999px;
+  background: hsl(0 0% 32%);
+  background-clip: padding-box;
+}
+
+.index-card tbody::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 42%);
+  background-clip: padding-box;
+}
+
+.index-card tr {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) max-content max-content max-content;
+}
+
 .index-card th,
 .index-card td {
+  min-width: 0;
   padding: 0.55rem 0.85rem;
   border-bottom: 1px solid var(--border);
   line-height: 1.25;
@@ -147,6 +212,7 @@ button:focus-visible {
 }
 
 .index-card th {
+  background: var(--card);
   color: var(--muted-foreground);
   font-size: 0.75rem;
   font-weight: 600;
@@ -163,6 +229,10 @@ button:focus-visible {
 
 .index-card tr:last-child td {
   border-bottom: 0;
+}
+
+.index-card .simulated-parent-row td {
+  grid-column: 1 / -1;
 }
 
 .index-card tbody tr,
@@ -214,7 +284,6 @@ button:focus-visible {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   white-space: nowrap;
-  width: 1%;
 }
 
 .sort-indicator {
@@ -305,6 +374,7 @@ button:focus-visible {
 
 .site-footer {
   display: flex;
+  flex: 0 0 auto;
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
@@ -356,10 +426,6 @@ button:focus-visible {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .index-card {
-    overflow-x: auto;
   }
 
   .index-card table {
