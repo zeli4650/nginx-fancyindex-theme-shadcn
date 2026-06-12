@@ -80,7 +80,7 @@
       var label = link.textContent.trim();
       var size = cells[2] ? cells[2].textContent.trim() : "";
 
-      if (label === "../" || href === "../") {
+      if (label === "../" || label === "Parent directory/" || href === "../") {
         row.remove();
       } else if (href.endsWith("/")) {
         row.dataset.kind = "directory";
