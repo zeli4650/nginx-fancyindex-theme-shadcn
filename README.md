@@ -1,6 +1,6 @@
-# Nginx Fancyindex Theme - shadcn/ui
+# Nginx FancyIndex Theme - shadcn/ui
 
-This is a theme for Nginx's [Fancyindex](https://github.com/aperezdc/ngx-fancyindex) module which looks to look like a minimalistic, modern web app as though it were built using shadcn/ui.
+This is a theme for Nginx's [FancyIndex](https://github.com/aperezdc/ngx-fancyindex) module which looks to look like a minimalistic, modern web app as though it were built using shadcn/ui.
 
 Make your static directory file listing tree both beautiful and efficient with static HTML, CSS & JS assets!
 
@@ -15,11 +15,11 @@ I use this theme for my [personal static file listing](https://files.guzek.uk/mi
 
 ## Installation
 
-Before installing the theme, make sure you have Fancyindex enabled. If you already have this, you can skip to step 2.
+Before installing the theme, make sure you have FancyIndex enabled. If you already have this, you can skip to step 2.
 
-### 1. Fancyindex installation
+### 1. FancyIndex installation
 
-This theme requires Nginx compiled with the Fancyindex module. The recommended way to achieve this is to use my Docker image.
+This theme requires Nginx compiled with the FancyIndex module. The recommended way to achieve this is to use my Docker image.
 
 Docker installation instructions: <https://github.com/kguzek/nginx-fancyindex-docker/#usage>
 
@@ -39,7 +39,7 @@ git clone https://github.com/kguzek/nginx-fancyindex-theme-shadcn.git
 > [!Tip]
 > Make sure to mount the repository directory in your Docker container.
 
-Next, you must instruct Fancyindex to use the `header.html` and `footer.html` files in the [theme](./theme) folder. You can achieve this with a drop-in location configuration.
+Next, you must instruct FancyIndex to use the `header.html` and `footer.html` files in the [theme](./theme) folder. You can achieve this with a drop-in location configuration.
 
 ```nginx
 # location.d/fancyindex-settings.conf
@@ -121,7 +121,7 @@ services:
       - ./location.d:/etc/nginx/location.d:ro
 ```
 
-This serves the files at `/mnt/samba/public` on port `8080` using the custom Fancyindex theme.
+This serves the files at `/mnt/samba/public` on port `8080` using the custom FancyIndex theme.
 
 ## Final notes
 

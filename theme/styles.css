@@ -404,6 +404,15 @@ button:focus-visible {
   color: var(--foreground);
 }
 
+.site-footer a.site-footer__muted-link {
+  color: inherit;
+}
+
+.site-footer a.site-footer__muted-link:hover,
+.site-footer a.site-footer__muted-link:focus-visible {
+  color: var(--foreground);
+}
+
 .site-footer a::after {
   position: absolute;
   right: 0;
