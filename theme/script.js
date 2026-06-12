@@ -113,6 +113,8 @@
     var currentPath = window.location.pathname;
     var row;
     var nameCell;
+    var sizeCell;
+    var descriptionCell;
     var link;
 
     if (!body || currentPath === "/") {
@@ -124,14 +126,20 @@
     row.className = "simulated-parent-row";
 
     nameCell = document.createElement("td");
+    sizeCell = document.createElement("td");
+    descriptionCell = document.createElement("td");
     link = document.createElement("a");
 
-    nameCell.colSpan = 4;
     link.href = "../";
     link.textContent = "..";
+    sizeCell.textContent = "-";
+    descriptionCell.textContent = "-";
+
     nameCell.appendChild(link);
 
     row.appendChild(nameCell);
+    row.appendChild(sizeCell);
+    row.appendChild(descriptionCell);
 
     body.insertBefore(row, body.firstElementChild);
   }
@@ -299,11 +307,53 @@
     return year + "-" + month + "-" + day + " " + hours + ":" + minutes;
   }
 
+  function syncListingColumnWidths() {
+    var table = listingTable();
+    var body = listingBody();
+    var card = document.querySelector(".index-card");
+    var widths = [0, 0, 0];
+
+    if (!table || !body || !card) {
+      return;
+    }
+
+    table.style.removeProperty("--listing-col-2");
+    table.style.removeProperty("--listing-col-3");
+    table.style.removeProperty("--listing-col-4");
+
+    [2, 3, 4].forEach(function (column, index) {
+      table
+        .querySelectorAll(
+          "th:nth-child(" + column + "), td:nth-child(" + column + ")",
+        )
+        .forEach(function (cell) {
+          widths[index] = Math.max(
+            widths[index],
+            Math.ceil(cell.getBoundingClientRect().width),
+          );
+        });
+    });
+
+    widths.forEach(function (width, index) {
+      if (width) {
+        table.style.setProperty("--listing-col-" + (index + 2), width + "px");
+      }
+    });
+
+    card.style.setProperty(
+      "--scrollbar-gutter-size",
+      Math.max(0, body.offsetWidth - body.clientWidth) + "px",
+    );
+  }
+
   renderBreadcrumbs();
   markRows();
   insertParentRow();
   formatListingDates();
   setupSortHeaders();
+  syncListingColumnWidths();
+
+  window.addEventListener("resize", syncListingColumnWidths);
 
   if (titleTarget) {
     titleTarget.textContent = prettyDirectoryName();

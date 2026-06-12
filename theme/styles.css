@@ -139,6 +139,9 @@ button:focus-visible {
 }
 
 .index-card {
+  --scrollbar-gutter-size: var(--scrollbar-size);
+  --scrollbar-size: 0.65rem;
+
   flex: 0 1 auto;
   min-height: 0;
   overflow: hidden;
@@ -170,16 +173,21 @@ button:focus-visible {
   display: block;
 }
 
+.index-card thead {
+  padding-right: var(--scrollbar-gutter-size);
+}
+
 .index-card tbody {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   scrollbar-color: hsl(0 0% 32%) transparent;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
 }
 
 .index-card tbody::-webkit-scrollbar {
-  width: 0.65rem;
+  width: var(--scrollbar-size);
 }
 
 .index-card tbody::-webkit-scrollbar-track {
@@ -200,7 +208,9 @@ button:focus-visible {
 
 .index-card tr {
   display: grid;
-  grid-template-columns: minmax(12rem, 1fr) max-content max-content max-content;
+  grid-template-columns:
+    minmax(12rem, 1fr) var(--listing-col-2, max-content)
+    var(--listing-col-3, max-content) var(--listing-col-4, max-content);
 }
 
 .index-card th,
@@ -231,10 +241,6 @@ button:focus-visible {
 
 .index-card tr:last-child td {
   border-bottom: 0;
-}
-
-.index-card .simulated-parent-row td {
-  grid-column: 1 / -1;
 }
 
 .index-card tbody tr,
