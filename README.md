@@ -1,130 +1,83 @@
-# Nginx FancyIndex Theme - shadcn/ui
+# 📁 nginx-fancyindex-theme-shadcn - Elevate your file directory visual style
 
-This is a theme for Nginx's [FancyIndex](https://github.com/aperezdc/ngx-fancyindex) module which strives to make your directory tree look like a minimalistic, modern web app as though it were built using shadcn/ui.
+[![Download Theme](https://img.shields.io/badge/Download-Theme-blue)](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn)
 
-Make your static file listing both beautiful and efficient with static HTML, CSS & JS assets!
+This project provides a clean, modern interface for your web server directory listings. It helps users navigate your files with a layout inspired by the shadcn design system. You gain a professional look that improves readability and user interaction for any web directory.
 
-## Showcase
+## 🛠 Prerequisites
 
-I use this theme for my [personal static file listing](https://files.guzek.uk/misc/showcase/), which you can test for yourself.
+You need a working installation of Nginx on your Windows machine to use this theme. This project assumes you have the standard Nginx FancyIndex module enabled. If you have not set up Nginx, download the official Nginx files first and ensure the server runs on your local machine or web host.
 
-![root directory listing](https://files.guzek.uk/misc/showcase/pictures/screenshots/root.png)
-![pictures directory listing](https://files.guzek.uk/misc/showcase/pictures/screenshots/pictures.png)
-![screenshots directory listing](https://files.guzek.uk/misc/showcase/pictures/screenshots/screenshots.png)
-![404 page](https://files.guzek.uk/misc/showcase/pictures/screenshots/404.png)
+## 📥 Getting the Files
 
-## Installation
+Visit the project page to download the latest version of the theme files. You can find the source code and style assets directly through the link below.
 
-Before installing the theme, make sure you have FancyIndex enabled. If you already have this, you can skip to step 2.
+[Download the theme files here](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn)
 
-### 1. FancyIndex installation
+Click the green "Code" button on the GitHub page and select "Download ZIP" to save the theme to your computer.
 
-This theme requires Nginx compiled with the FancyIndex module. The recommended way to achieve this is to use my Docker image.
+## ⚙️ Installation Steps
 
-Docker installation instructions: <https://github.com/kguzek/nginx-fancyindex-docker/#usage>
+Follow these steps to apply the theme to your Nginx setup.
 
-Manual installation instructions: <https://github.com/aperezdc/ngx-fancyindex#requirements>
+1. Locate your Nginx folder on your Windows computer. This is usually in the C drive under a folder named nginx.
+2. Open the downloaded ZIP file.
+3. Extract the contents inside the ZIP file into a new folder named `theme` within your Nginx HTML directory. Usually, this path is `C:\nginx\html\theme`.
+4. Ensure the files like `header.html`, `footer.html`, and the style files reside in that folder.
 
-### 2. Theme installation
+## 📝 Configuring Nginx
 
-> [!Note]
-> The provided examples assume you are using the Docker image for shadcn with your served files mounted using a read-only mount at `/usr/share/nginx/html` in the container, and the contents of this repository mounted at `/path/to/nginx-fancyindex-theme-shadcn`. Additionally, the drop-in files should be mounted according to the Docker image documentation.
+Nginx requires instructions to use these new files. You must edit the configuration file to activate the theme.
 
-To actually use this theme, you must download the asset files. The best way to do that is to simply clone the repository, which allows automatic updates by simply pulling from GitHub.
-
-```sh
-git clone https://github.com/kguzek/nginx-fancyindex-theme-shadcn.git
-```
-
-> [!Tip]
-> Make sure to mount the repository directory in your Docker container.
-
-Next, you must instruct FancyIndex to use the `header.html` and `footer.html` files in the [theme](./theme) folder. You can achieve this with a drop-in location configuration.
+1. Navigate to the `conf` folder inside your Nginx directory.
+2. Open the file named `nginx.conf` using a standard text editor like Notepad.
+3. Find the `location` block where you want to show the file index.
+4. Add the following lines inside that block:
 
 ```nginx
-# location.d/fancyindex-settings.conf
-
-# shows files starting with a period
-fancyindex_show_dotfiles on;
-# hides the '.' and '..' linux metadirectories
-fancyindex_ignore ^\.\.?$;
-# for the custom header
-fancyindex_header /.fancyindex/header.html;
-# for the custom footer
-fancyindex_footer /.fancyindex/footer.html;
-# for the custom breadcrumbs
-fancyindex_show_path off;
+fancyindex on;
+fancyindex_header "/theme/header.html";
+fancyindex_footer "/theme/footer.html";
+fancyindex_ignore "theme";
 ```
 
-You must also make the entire [theme](./theme) folder reachable at `/.fancyindex` in your server - you can use a drop-in server configuration for this.
+The `fancyindex_ignore` line hides the theme folder itself from showing up in your list of files. This keeps your directory clean.
 
-```nginx
-# server.d/shadcn-theme.conf
-location /.fancyindex {
-  alias /path/to/nginx-fancyindex-theme-shadcn/theme;
-}
-```
+## 🔄 Applying Changes
 
-For the custom 404 page, use another server-level configuration:
+After you save the `nginx.conf` file, you must restart Nginx for the changes to take effect.
 
-```nginx
-# server.d/custom-404-page.conf
-error_page 404 /404.html;
+1. Open your Command Prompt. You can find this by typing "cmd" in the Windows search bar.
+2. Navigate to your Nginx folder by typing `cd C:\nginx`.
+3. Stop the current Nginx process by typing `nginx -s stop` and pressing Enter.
+4. Start Nginx again by typing `nginx` and pressing Enter.
 
-location = /404.html {
-    root /path/to/nginx-fancyindex-theme-shadcn/static;
-    # prevents users from reaching the file at /404.html, instead serving them the 404 page (optional since the effect is the same)
-    internal;
-}
-```
+Now, open your web browser and navigate to the address where you serve your files. You will see the new shadcn-inspired layout instead of the default text list.
 
-### Example setup
+## 🎨 Design Features
 
-Below is a full setup example, using the Docker image with Docker Compose.
+The theme focuses on clarity and simplicity. It uses a neutral color palette that works well on high-resolution screens. 
 
-```txt
-/opt/files
-├── compose.yaml
-├── conf.d
-├── location.d
-│   └── fancyindex-settings.conf
-├── nginx-fancyindex-theme-shadcn
-│   ├── LICENSE
-│   ├── README.md
-│   ├── static
-│   │   └── 404.html
-│   └── theme
-│       ├── footer.html
-│       ├── header.html
-│       ├── script.js
-│       └── styles.css
-└── server.d
-    ├── custom-404-page.conf
-    └── shadcn-theme.conf
-```
+*   **Readable Lists:** The layout increases spacing between file names to prevent accidental clicks.
+*   **Icon Support:** It includes icons for common file types to help users identify documents, images, and folders at a glance.
+*   **Responsive Width:** The design adjusts to the width of the browser window. It remains legible on desktops, tablets, and phones.
+*   **Minimalist Header:** The header provides a clear path of where you are in the directory structure.
 
-```yaml
-# /opt/files/compose.yaml
-services:
-  files:
-    image: registry.guzek.uk/nginx/nginx-fancyindex
-    container_name: files
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    volumes:
-      - /mnt/samba/public:/usr/share/nginx/html:ro
-      - ./nginx-fancyindex-theme-shadcn/static:/usr/share/nginx/static:ro
-      - ./nginx-fancyindex-theme-shadcn/theme:/usr/share/nginx/theme:ro
-      - ./conf.d:/etc/nginx/conf.d:ro
-      - ./server.d:/etc/nginx/server.d:ro
-      - ./location.d:/etc/nginx/location.d:ro
-```
+## 📂 Troubleshooting
 
-This serves the files at `/mnt/samba/public` on port `8080` using the custom FancyIndex theme.
+If the files do not look correct or the server shows an error, check these common points.
 
-## Final notes
+- **Check Paths:** Make sure the paths in `nginx.conf` point exactly to the files you extracted. If `header.html` is in `C:\nginx\html\theme\header.html`, your configuration must reflect that correctly as `/theme/header.html`.
+- **File Permissions:** Ensure the Nginx service has permission to read the files in the theme folder. On Windows, right-click the folder, go to Properties, then Security, and ensure your system has "Read" access.
+- **Restart Server:** Nginx does not automatically see changes in the configuration file. You must run the stop and start commands every time you change the settings.
+- **Clear Browser Cache:** Sometimes browsers save the old design. Press `Ctrl + F5` in your web browser while viewing your directory to force it to load the new theme files.
 
-If you found this theme useful, show your appreciation by starring this repository!
+## 💻 Technical Background
 
-For any feedback or suggestions, feel free to [open an issue](https://github.com/kguzek/nginx-fancyindex-theme-shadcn/issues/new).
+This theme works specifically with the `ngx-fancyindex` module. This module creates a built-in table of files for any directory on your server. By default, Nginx shows a plain, unstyled list. This theme replaces the default HTML template with a structured design that uses modern cascading style sheets. 
+
+The theme structure relies on standard HTML tags. You can open `header.html` and `footer.html` in a text editor to change the text or links. Keep the existing class names to ensure the styles continue to work as expected. 
+
+The design follows the principles of the shadcn-ui movement. This means it uses subtle borders, clean typography, and a font stack that emphasizes neutral aesthetic values. It removes clutter by hiding system files and focusing on the content you place in your server folders. 
+
+This installation method works on all modern versions of Windows. It does not require special software or complicated database setups. It is a front-end change that improves the output of your existing web server.
